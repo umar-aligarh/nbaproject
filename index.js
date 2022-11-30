@@ -128,7 +128,7 @@ app.post("/updatecsv",async(req,res)=>{
 
 
 
-app.post('/exportcsv',async(req,res)=>{
+app.get('/exportcsv',async(req,res)=>{
     let parserObj = new Parser();
     const doc = await db.collection(courseglobal.toString()).findOne(
     {
@@ -138,13 +138,13 @@ app.post('/exportcsv',async(req,res)=>{
         if(err) throw err;
         console.log(result);
         let csv = parserObj.parse(result);
+        console.log(csv);
         fs.writeFile('./data.csv',csv,callback);
         function callback()
         {
-            return res.redirect('/exportdatadownload');
+            return res.redirect('/csvdownload');
         }
-    }
-    )
+    })
 });
 
 
