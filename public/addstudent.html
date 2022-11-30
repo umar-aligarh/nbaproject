@@ -5,22 +5,25 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link type="text/css" rel="stylesheet" href="styles.css">
-    <title>NBA Database</title>
+	<link href="assets/css/style.css" rel="stylesheet">
+    <title>Add New Student</title>
 </head>
 <body>
-    <h2>NBA Database</h2>
 <div class="container" id="container">
 	<div class="form-container sign-up-container">
-		<form action="/create" method="POST">
+		<form action="/createstudent" method="POST">
+		<div id="formfield">
 			<h1>Add New Student</h1>
 			<input type="text" placeholder="Enrollement Number"  name="enr" required/>
 			<input type="text" placeholder="Name"  name="name"  required/>
 			<input type="text" placeholder="Course" name="course" required />
 			<input type="submit" value="ADD STUDENT" id="submit" />
+		</div>
 		</form>
 	</div>
 	<div class="form-container sign-in-container">
-		<form action="/select" method="POST">
+		<form action="/updatestudent" method="POST">
+			<div id="formfield">
 			<h1>Registered Student</h1>
 			<input type="text" placeholder="Entrollment Number" name="enr" required />
 			<input type="text" placeholder="Course" name="course"  required/>
@@ -32,6 +35,7 @@
 				</select>
 			</div>
 			<input type="submit" value="UPDATE" id="submit" />
+			</div>
 		</form>
 	</div>
 	<div class="overlay-container">
@@ -39,13 +43,15 @@
 			<div class="overlay-panel overlay-left">
                 <img src="amulogo.png" alt="logo" width="270" height="300">
                 <br>
-				<button class="ghost" id="signIn" >UPDATE STUDENT</button>
+				<button class="ghost" id="signIn" >Register Student</button>
+				<button class="ghost" id="signIn" onclick="window.location.href='home.html'">Home</button>
 			</div>
             
 			<div class="overlay-panel overlay-right">
                 <img src="amulogo.png" alt="logo" width="270" height="300">
                 <br>
 				<button class="ghost" id="signUp">New Student</button>
+				<button class="ghost" id="signUp" onclick="window.location.href='home.html'">Home</button>
 			</div>
 		</div>
 	</div>
