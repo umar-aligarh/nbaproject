@@ -169,4 +169,3 @@ app.get("/",(req,res)=>{
 
 console.log(`Listening on PORT ${port}`);
 
-    // "start": "node index.js"
