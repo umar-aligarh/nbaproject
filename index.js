@@ -2,8 +2,11 @@ let express = require("express")
 let bodyParser = require("body-parser")
 let mongoose = require("mongoose")
 let { Parser } = require('json2csv')
+let csv2json = require('csv2json')
 let fs = require('fs')
 const { parse } = require("path")
+const multer = require('multer');
+const uploadedData = require('./mydata');
 
 const port  = process.env.PORT || 3000;
 
@@ -44,7 +47,7 @@ app.post("/createstudent",(req,res)=>{  //add new student
         }
     }
 
-    db.collection(course).insertOne(data,(err,collection)=>{
+    db.collection(course).save(data,(err,collection)=>{
         if(err){
             throw err;
         }
@@ -125,9 +128,6 @@ app.post("/updatecsv",async(req,res)=>{
 })
 
 
-
-
-
 app.get('/exportcsv',async(req,res)=>{
     let parserObj = new Parser();
     const doc = await db.collection(courseglobal.toString()).findOne(
@@ -159,13 +159,58 @@ app.get('/csvdownload', (req, res) => {
     stream.pipe(res);
 });
 
+const csvStorage = multer.diskStorage({
+    // Destination to store csv     
+    destination: 'csv', 
+      filename: (req, file, cb) => {
+        cb(null, 'myupload.csv')
+    }
+});
+const csvUpload = multer({
+    storage: csvStorage,
+    limits: {
+      fileSize: 5000000 //5MB
+    }
+})
+
+app.post('/upload_csv', csvUpload.single('csvupload'), (req, res) => {
+    
+    courseglobal = req.body.course;
+    return res.redirect("/csv_2_json");
+})
+
+app.get("/csv_2_json",(req,res)=>{
+    fs.createReadStream(`${__dirname}/csv/myupload.csv`)
+    .pipe(csv2json({
+    separator:','
+}))
+    .pipe(fs.createWriteStream('mydata.json'));
+    return res.redirect("/upload_json_database");
+})
+
+app.get("/upload_json_database",async(req,res)=>{
+    console.log(uploadedData);
+    const length = uploadedData.length
+    for(let i=0;i<length;i++)
+    {
+        await db.collection(courseglobal).save(uploadedData[i],{ checkKeys: false },(err,collection)=>{
+            if(err){
+                throw err;
+            }
+            console.log(`json data inserted successfully in ${courseglobal}`);
+        });
+
+    }
+    return res.redirect('addcsv.html');
+})
+
+
 app.get("/",(req,res)=>{
     res.set({
         "Allow-access-Allow-Origin": '*'
     })
     return res.redirect('home.html');
 }).listen(port);
-
 
 console.log(`Listening on PORT ${port}`);
 

@@ -1,2 +1,2 @@
-"_id","name","q_1Ob","q_1T","q3Ob","q3T","Q3Ob","Q3T","Q4Ob","Q4T","q5Ob","q5T"
-"midsemschema","name","midsem.co1.q_1.marksObtained","midsem.1.q_1.totalMarks","midsem.co2.q3.marksObtained","midsem.2.q3.totalMarks","midsem.co1.Q3.marksObtained","midsem.co1.Q3.totalMarks","midsem.co1.Q4.marksObtained","midsem.co1.Q4.totalMarks","midsem.co1.q5.marksObtained","midsem.co1.q5.totalMarks"
+"_id","name","q1Ob","q1T","q2Ob","q2T"
+"midsemschema","name","midsem.co1.q1.marksObtained","midsem.co1.q1.totalMarks","midsem.co1.q2.marksObtained","midsem.co1.q2.totalMarks"
